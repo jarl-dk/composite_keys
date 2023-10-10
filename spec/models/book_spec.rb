@@ -20,6 +20,17 @@ RSpec.describe Book, type: :model do
       it "can be found" do
         expect(described_class.find(1)).to eq book
       end
+
+      context "with chapters" do
+        before do
+          book.chapters << Chapter.new(number: 1, title: "Chapter one")
+          book.chapters << Chapter.new(number: 2, title: "Chapter two")
+        end
+
+        it "has chapters" do
+          expect(book.chapters).to have_attributes(size: 2)
+        end
+      end
     end
   end
 end
