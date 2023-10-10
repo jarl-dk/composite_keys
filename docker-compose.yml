@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:15.2-alpine # this should match prod DB
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./db/create-user.sql:/docker-entrypoint-initdb.d/create-user.sql
+    ports:
+      - 127.0.0.1:5432:5432
+
