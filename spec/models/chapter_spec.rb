@@ -23,6 +23,14 @@ RSpec.describe Chapter, type: :model do
         expect(described_class.find([book.number, chapter.number])).to eq chapter
         expect(book.chapters.find_by(number:chapter.number)).to eq chapter
       end
+
+      describe "update_all" do
+        subject(:update_all) { Chapter.joins(:book).where(book: {title: "First book"}).update_all(title: "Chapter") }
+
+        it "updates all" do
+          expect { update_all }.to change { book.chapters.pluck(:title).to_a }.to(["Chapter"])
+        end
+      end
     end
   end
 end
